@@ -1,0 +1,22 @@
+[package]
+name = "aufsichtsperson"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+poise = "0.2.1"
+tokio = { version = "1", features = ["full"] }
+rand = "0.8.3"
+
+[dependencies.serenity]
+default-features = false
+version = "0.11"
+
+[dependencies.songbird]
+git = "https://github.com/serenity-rs/songbird"
+branch = "next"
+
+[patch."https://github.com/serenity-rs/serenity"]
+serenity = { version = "0.11.1" }
