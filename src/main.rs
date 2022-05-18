@@ -20,6 +20,7 @@ async fn main() {
                 apex::apex(),
                 play::play(),
                 stop::stop(),
+                map::map(),
             ],
             listener: |ctx, event, framework, user_data| {
                 Box::pin(ready_event(ctx, event, framework, user_data))

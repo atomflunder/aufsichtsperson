@@ -1,27 +1,35 @@
 use crate::{Context, Error};
 use rand::seq::SliceRandom;
+use serde::Deserialize;
+
+#[derive(Deserialize)]
+struct ApexChar {
+    name: String,
+    asset_url: String,
+}
+
+#[derive(Deserialize)]
+struct ApexChars {
+    characters: Vec<ApexChar>,
+}
 
 #[poise::command(slash_command)]
 
 /// Random Apex Character.
 pub async fn apex(ctx: Context<'_>) -> Result<(), Error> {
-    let apex_chars = include_str!("./../../files/apex_characters.json")
-        .lines()
-        .filter(|c| c != &"{" && c != &"}")
-        .collect::<Vec<&str>>();
+    let chars = serde_json::from_str::<ApexChars>(&format!(
+        "{}",
+        include_str!("../../files/apex_characters.json")
+    ))?;
 
-    let mut result = apex_chars
-        .choose(&mut rand::thread_rng())
-        .unwrap()
-        .split(": ");
-
-    // We could use some external library to parse json files, but this works good enough.
-    let character = result.next().unwrap().replace("\"", "");
-    let render = result.next().unwrap().replace("\"", "").replace(",", "");
+    let chosen_char = chars.characters.choose(&mut rand::thread_rng()).unwrap();
 
     ctx.send(|m| {
-        m.content("Random Apex Character:")
-            .embed(|e| e.title(character).colour((218, 41, 42)).image(render))
+        m.content("Random Apex Character:").embed(|e| {
+            e.title(&chosen_char.name)
+                .colour((218, 41, 42))
+                .image(&chosen_char.asset_url)
+        })
     })
     .await?;
 
