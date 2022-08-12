@@ -31,7 +31,7 @@ pub async fn map(ctx: Context<'_>) -> Result<(), Error> {
                 .description(format!("**Time remaining:** {}", current_map.1))
                 .footer(|f| f.text(format!("Next Up: {}", next_map)))
                 .colour((218, 41, 42))
-                .image(format!("{}", current_map.2))
+                .image(current_map.2.to_string())
         })
     })
     .await?;

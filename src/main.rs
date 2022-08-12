@@ -45,14 +45,11 @@ async fn ready_event(
     _framework: poise::FrameworkContext<'_, Data, Error>,
     _user_data: &Data,
 ) -> Result<(), Error> {
-    match event {
-        poise::Event::Ready { data_about_bot } => {
-            println!(
-                "Logged in to Discord as {}#{}! Ctrl+C to exit.",
-                data_about_bot.user.name, data_about_bot.user.discriminator
-            )
-        }
-        _ => (),
+    if let poise::Event::Ready { data_about_bot } = event {
+        println!(
+            "Logged in to Discord as {}#{}! Ctrl+C to exit.",
+            data_about_bot.user.name, data_about_bot.user.discriminator
+        )
     }
 
     Ok(())

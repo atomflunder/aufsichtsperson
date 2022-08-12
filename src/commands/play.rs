@@ -21,7 +21,7 @@ pub async fn play(ctx: Context<'_>) -> Result<(), Error> {
         }
     };
 
-    let manager = songbird::get(&ctx.discord())
+    let manager = songbird::get(ctx.discord())
         .await
         .expect("Something wrong with Songbird.")
         .clone();

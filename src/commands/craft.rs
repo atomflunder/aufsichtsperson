@@ -10,7 +10,7 @@ fn hex_to_rgb(hex_colour: String) -> (u8, u8, u8) {
     let g_value = u8::from_str_radix(&hex_colour[3..=4], 16).unwrap();
     let b_value = u8::from_str_radix(&hex_colour[5..=6], 16).unwrap();
 
-    return (r_value, g_value, b_value);
+    (r_value, g_value, b_value)
 }
 
 #[poise::command(slash_command)]
@@ -35,7 +35,7 @@ pub async fn craft(ctx: Context<'_>) -> Result<(), Error> {
                 &v[0]["bundleContent"][0]["itemType"]["name"]
                     .as_str()
                     .unwrap()
-                    .replace("_", " "),
+                    .replace('_', " "),
             ),
             &v[0]["bundleContent"][0]["cost"].to_string(),
             &v[0]["bundleContent"][0]["itemType"]["asset"]
@@ -53,7 +53,7 @@ pub async fn craft(ctx: Context<'_>) -> Result<(), Error> {
                 &v[0]["bundleContent"][1]["itemType"]["name"]
                     .as_str()
                     .unwrap()
-                    .replace("_", " "),
+                    .replace('_', " "),
             ),
             &v[0]["bundleContent"][1]["cost"].to_string(),
             &v[0]["bundleContent"][1]["itemType"]["asset"]
@@ -74,7 +74,7 @@ pub async fn craft(ctx: Context<'_>) -> Result<(), Error> {
                 &v[1]["bundleContent"][0]["itemType"]["name"]
                     .as_str()
                     .unwrap()
-                    .replace("_", " "),
+                    .replace('_', " "),
             ),
             &v[1]["bundleContent"][0]["cost"].to_string(),
             &v[1]["bundleContent"][0]["itemType"]["asset"]
@@ -92,7 +92,7 @@ pub async fn craft(ctx: Context<'_>) -> Result<(), Error> {
                 &v[1]["bundleContent"][1]["itemType"]["name"]
                     .as_str()
                     .unwrap()
-                    .replace("_", " "),
+                    .replace('_', " "),
             ),
             &v[1]["bundleContent"][1]["cost"].to_string(),
             &v[1]["bundleContent"][1]["itemType"]["asset"]
