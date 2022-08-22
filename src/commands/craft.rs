@@ -6,9 +6,9 @@ use titlecase::titlecase;
 fn hex_to_rgb(hex_colour: String) -> (u8, u8, u8) {
     // The API sends us a Hex Colour Code but we need RGB values.
 
-    let r_value = u8::from_str_radix(&hex_colour[1..=2], 16).unwrap();
-    let g_value = u8::from_str_radix(&hex_colour[3..=4], 16).unwrap();
-    let b_value = u8::from_str_radix(&hex_colour[5..=6], 16).unwrap();
+    let r_value = u8::from_str_radix(&hex_colour[1..=2], 16).unwrap_or(0);
+    let g_value = u8::from_str_radix(&hex_colour[3..=4], 16).unwrap_or(0);
+    let b_value = u8::from_str_radix(&hex_colour[5..=6], 16).unwrap_or(0);
 
     (r_value, g_value, b_value)
 }
@@ -34,37 +34,37 @@ pub async fn craft(ctx: Context<'_>) -> Result<(), Error> {
             titlecase(
                 &v[0]["bundleContent"][0]["itemType"]["name"]
                     .as_str()
-                    .unwrap()
+                    .unwrap_or("Invalid")
                     .replace('_', " "),
             ),
             &v[0]["bundleContent"][0]["cost"].to_string(),
             &v[0]["bundleContent"][0]["itemType"]["asset"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or(""),
             &v[0]["bundleContent"][0]["itemType"]["rarity"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
             &v[0]["bundleContent"][0]["itemType"]["rarityHex"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
         ),
         (
             titlecase(
                 &v[0]["bundleContent"][1]["itemType"]["name"]
                     .as_str()
-                    .unwrap()
+                    .unwrap_or("Invalid")
                     .replace('_', " "),
             ),
             &v[0]["bundleContent"][1]["cost"].to_string(),
             &v[0]["bundleContent"][1]["itemType"]["asset"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or(""),
             &v[0]["bundleContent"][1]["itemType"]["rarity"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
             &v[0]["bundleContent"][1]["itemType"]["rarityHex"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
         ),
     );
 
@@ -73,37 +73,37 @@ pub async fn craft(ctx: Context<'_>) -> Result<(), Error> {
             titlecase(
                 &v[1]["bundleContent"][0]["itemType"]["name"]
                     .as_str()
-                    .unwrap()
+                    .unwrap_or("Invalid")
                     .replace('_', " "),
             ),
             &v[1]["bundleContent"][0]["cost"].to_string(),
             &v[1]["bundleContent"][0]["itemType"]["asset"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or(""),
             &v[1]["bundleContent"][0]["itemType"]["rarity"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
             &v[1]["bundleContent"][0]["itemType"]["rarityHex"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
         ),
         (
             titlecase(
                 &v[1]["bundleContent"][1]["itemType"]["name"]
                     .as_str()
-                    .unwrap()
+                    .unwrap_or("Invalid")
                     .replace('_', " "),
             ),
             &v[1]["bundleContent"][1]["cost"].to_string(),
             &v[1]["bundleContent"][1]["itemType"]["asset"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or(""),
             &v[1]["bundleContent"][1]["itemType"]["rarity"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
             &v[1]["bundleContent"][1]["itemType"]["rarityHex"]
                 .as_str()
-                .unwrap(),
+                .unwrap_or("Invalid"),
         ),
     );
 

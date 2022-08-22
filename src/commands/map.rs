@@ -19,11 +19,13 @@ pub async fn map(ctx: Context<'_>) -> Result<(), Error> {
     let v: Value = serde_json::from_str(&*request)?;
 
     let current_map = (
-        &v["current"]["map"].as_str().unwrap(),
-        &v["current"]["remainingTimer"].as_str().unwrap(),
-        &v["current"]["asset"].as_str().unwrap(),
+        &v["current"]["map"].as_str().unwrap_or("Invalid Map"),
+        &v["current"]["remainingTimer"]
+            .as_str()
+            .unwrap_or("00:00:00"),
+        &v["current"]["asset"].as_str().unwrap_or(""),
     );
-    let next_map = &v["next"]["map"].as_str().unwrap();
+    let next_map = &v["next"]["map"].as_str().unwrap_or("Invalid Map");
 
     ctx.send(|m| {
         m.content("Current Apex Map:").embed(|e| {

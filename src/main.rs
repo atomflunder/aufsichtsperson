@@ -22,6 +22,7 @@ async fn main() {
                 stop::stop(),
                 map::map(),
                 craft::craft(),
+                stats::stats(),
             ],
             listener: |ctx, event, framework, user_data| {
                 Box::pin(ready_event(ctx, event, framework, user_data))

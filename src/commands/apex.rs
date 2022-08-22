@@ -18,9 +18,17 @@ struct ApexChars {
 /// Random Apex Character.
 pub async fn apex(ctx: Context<'_>) -> Result<(), Error> {
     let chars =
-        serde_json::from_str::<ApexChars>(include_str!("../../files/apex_characters.json"))?;
+        &serde_json::from_str::<ApexChars>(include_str!("../../files/apex_characters.json"))?;
 
-    let chosen_char = chars.characters.choose(&mut rand::thread_rng()).unwrap();
+    let invalid_char = ApexChar {
+        name: "Invalid Char".to_string(),
+        asset_url: "".to_string(),
+    };
+
+    let chosen_char = chars
+        .characters
+        .choose(&mut rand::thread_rng())
+        .unwrap_or(&invalid_char);
 
     ctx.send(|m| {
         m.content("Random Apex Character:").embed(|e| {
